@@ -50,6 +50,7 @@ from .eval_update_params import EvalUpdateParams as EvalUpdateParams
 from .file_create_params import FileCreateParams as FileCreateParams
 from .batch_create_params import BatchCreateParams as BatchCreateParams
 from .batch_request_counts import BatchRequestCounts as BatchRequestCounts
+from .batch_request_input_object import BatchRequestInputObject as BatchRequestInputObject
 from .eval_create_response import EvalCreateResponse as EvalCreateResponse
 from .eval_delete_response import EvalDeleteResponse as EvalDeleteResponse
 from .eval_update_response import EvalUpdateResponse as EvalUpdateResponse
