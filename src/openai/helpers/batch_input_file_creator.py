@@ -6,6 +6,11 @@ from typing import Iterable, Union
 from ..types import BatchRequestInputObject
 
 class BatchInputFileCreator(UserList[BatchRequestInputObject]):
+    """
+    A helper class to create a batch input file for OpenAI's Batch API.
+    
+    Add `BatchRequestInputObject` instances to this class like a list and then call `create_file()`
+    """
     def __init__(
             self,
             initlist: Union[Iterable[BatchRequestInputObject], None] = None,
@@ -36,9 +41,12 @@ class BatchInputFileCreator(UserList[BatchRequestInputObject]):
         """ Validate the batch input file for uniqueness of custom IDs."""
         
         custom_id_valid = self._validate_custom_id()
-        if not custom_id_valid:
-            if raise_validation:
+        if not custom_id_valid and raise_validation:
                 raise ValueError("Custom IDs must be unique across all items in the batch input file.")
+
+        endpoint_valid = self._validate_endpoint()
+        if not endpoint_valid and raise_validation:
+            raise ValueError("All items in the batch input file must have the same endpoint.")
 
     def _validate_custom_id(self) -> bool:
         """Check duplication of custom IDs in the batch input objects."""
@@ -49,3 +57,10 @@ class BatchInputFileCreator(UserList[BatchRequestInputObject]):
                 return False
             custom_ids.add(item.custom_id)
         return True
+    
+    def _validate_endpoint(self) -> bool:
+        """Check if the endpoints are all the same."""
+        # Placeholder for actual endpoint validation logic
+        
+        endpoints = {item.url for item in self}
+        return len(endpoints) == 1
